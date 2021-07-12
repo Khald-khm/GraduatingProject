@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+* ul {
+  list-style: none;
+}
+
+* ul li {
+  display: inline;
+}
+
+hr {
+  margin: 10px;
+  width: 100%;
+}
+
+.container {
+  padding: 30px;
+  margin: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 7px;
+}
+
+.container .containerHeader {
+  padding-bottom: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  border: 1px solid;
+  width: 100%;
+}
+
+.container .information {
+  text-align: start;
+}
+
+.container .information .photoAndName {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.container .information .photoAndName img {
+  border: 1px solid;
+  width: 50px;
+}
+
+.container .information .otherInfo {
+  padding: 10px 50px;
+}
+
+.container .information .otherInfo .location, .container .information .otherInfo .bio, .container .information .otherInfo .perHour, .container .information .otherInfo .skills, .container .information .otherInfo .languages {
+  padding-top: 20px;
+}
+
+.container .information .otherInfo .skills .allSkills ul {
+  width: 50%;
+  padding: 10px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.container .information .otherInfo .languages ul {
+  width: 30%;
+  padding: 10px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.container .jobs {
+  width: 100%;
+}
+
+.container .jobs .peds {
+  text-align: center;
+}
+
+.container .jobs .peds ul {
+  padding: 10px 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.container .jobs .cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.container .jobs .cards .profileCard {
+  width: 330px;
+  border: 1px solid lightgray;
+  border-radius: 7px;
+}
+
+.container .jobs .cards .profileCard .profileImage {
+  height: 130px;
+  border-bottom: 1px solid lightgray;
+  background: white;
+  border-radius: 7px 7px 0 0;
+}
+
+.container .jobs .cards .profileCard .profileInfo {
+  padding: 10px 5PX;
+  text-align: start;
+  background-color: #fffeef;
+}
+
+.container .jobs .cards .profileCard .profileInfo .name, .container .jobs .cards .profileCard .profileInfo .location, .container .jobs .cards .profileCard .profileInfo .perHour, .container .jobs .cards .profileCard .profileInfo .skills, .container .jobs .cards .profileCard .profileInfo .rate {
+  padding: 10px;
+  padding-left: 25px;
+  font-size: 16px;
+}
+
+.container .jobs .cards .profileCard .profileInfo .skills ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.container .jobs .cards .profileCard .profileInfo .skills ul li {
+  font-size: 14px;
+  display: inline;
+}
+
+.container .jobs .cards .profileCard .profileInfo .name {
+  font-size: 18px;
+}
+
+.container .jobs .cards .profileCard .viewProfile {
+  padding: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  background-color: #1dbcd8;
+  font-size: 16px;
+  border-radius: 0 0 7px 7px;
+}
+/*# sourceMappingURL=profile.css.map */

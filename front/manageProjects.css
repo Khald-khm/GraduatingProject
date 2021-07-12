@@ -1,0 +1,150 @@
+header {
+  padding: 5px;
+  background-color: #001d3d;
+  height: 50px;
+  color: white;
+}
+
+header .list {
+  padding: 0 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .list .links {
+  padding: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .list .links ul {
+  padding-right: 20px;
+  list-style: none;
+}
+
+header .list .links ul li {
+  padding: 2px 20px;
+  display: inline-block;
+}
+
+header .list .links img {
+  border-radius: 50%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f9f9f9;
+}
+
+.container {
+  padding: 30px;
+  margin: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  border-radius: 7px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(218, 218, 218, 0.288)), to(rgba(77, 77, 77, 0.288)));
+  background-image: linear-gradient(to bottom, rgba(218, 218, 218, 0.288), rgba(77, 77, 77, 0.288));
+}
+
+.Project {
+  margin: 50px;
+  font-family: Tahoma;
+  border-radius: 7px;
+  width: 60%;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.082);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.082);
+}
+
+.Project .ProjectInfo {
+  padding: 20px 50px;
+  background-color: #cde5ff;
+  border-radius: 7px 7px 0 0;
+}
+
+.Project .ProjectInfo .ProjectHeader .ProjectTitle {
+  font-size: 18px;
+}
+
+.Project .ProjectInfo .ProjectHeader .userPublisher {
+  padding-top: 3px;
+  color: rgba(122, 122, 122, 0.745);
+  font-size: 12px;
+}
+
+.Project .ProjectInfo .ProjectBody {
+  padding: 20px 0;
+  font-size: 14px;
+  color: #705252;
+}
+
+.Project .ProjectInfo .moreInfo {
+  padding-top: 10px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 12px;
+  color: rgba(97, 97, 97, 0.952);
+}
+
+.Project .ProjectInfo .moreInfo .requiredSkills ul {
+  list-style: none;
+}
+
+.Project .ProjectInfo .moreInfo .requiredSkills ul li {
+  display: inline;
+  padding-left: 8px;
+}
+
+.Project .ProjectManaging {
+  padding: 20px 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  color: white;
+  background-color: #6b75cf;
+  border-radius: 0 0 7px 7px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=manageProjects.css.map */

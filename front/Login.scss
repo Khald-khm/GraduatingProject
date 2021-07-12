@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.wholeForm {
+    margin: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    // background-color: rgb(218, 177, 252);
+
+    .sideImage {
+        padding-bottom: 90px;
+        // float: left;
+        width: 60%;
+
+        img {
+            width: 30vw;
+        }
+        
+        
+
+    }
+
+    .loginForm {
+        padding: 20px;
+        padding-top: 110px;
+        width: 250px;
+        height: 350px;
+        border-radius: 7px;
+        box-shadow: -3px -3px 7px 3px lightgray;
+        background-image: linear-gradient(to bottom, rgb(249, 244, 255), rgb(185, 110, 255) );
+        // background-image: radial-gradient()
+
+        .headerForm {
+            font-size: 36px;
+
+            .welcome {
+                text-align: start;
+                font-size: 30px;
+            }
+
+            .getJob {
+                padding-top: 10px;
+                padding-right: 20px;
+                text-align: end;
+            }
+        }
+
+        form {
+            padding: 5px;
+            // display: flex;
+            //flex-direction: column;
+            // justify-content: space-around;
+            // align-content: center;
+
+            .forgetPassword {
+                padding-right: 15px; 
+                font-size: 11px;
+                text-align: end;
+            }
+
+            .username, .login {
+                padding: 10px;
+
+                input {
+                    padding: 0 10px;
+                    width: 200px;
+                    height: 35px;
+                    border-radius: 40px;
+                    border: none;
+                    box-shadow: inset 1px 1px 5px 3px rgb(168, 168, 168), inset -5px -5px 5px 3px white;
+                }
+            }
+
+            .login {
+                
+                input {
+                    box-shadow: 3px 3px 6px 1px rgb(85, 85, 85);
+                }
+            }
+        }
+
+        .registerLink {
+            padding-top: 67px;
+            font-size: 12px;
+            
+
+        }
+
+    }
+}

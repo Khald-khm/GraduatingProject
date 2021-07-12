@@ -1,0 +1,76 @@
+@import 'navBar';
+
+$color_one : #edf2fb;
+$color_two : #f9f9f9;
+$color_three : #4f6d7a;
+
+* {
+    margin: 0;
+    padding: 0;
+    //font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: $color_two;
+}
+
+
+
+
+.profileCard {
+    margin: 100px;
+    margin-left: 300px;
+    width: 330px;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+
+    .profileImage {
+        height: 130px;
+        border-bottom: 1px solid lightgray;
+        background: white;
+        border-radius: 7px 7px 0 0;
+        
+    }
+
+    .profileInfo {
+        padding: 10px 5PX;
+        text-align: start;
+        background-color: #fffeef;
+
+        .name, .location, .perHour, .skills, .rate {
+            padding: 10px;
+            padding-left: 25px;
+            font-size: 16px;
+            //border: 1px solid;
+        }
+
+        .skills {
+            ul {
+                list-style: none;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+
+                li {
+                    font-size: 14px;
+                    display: inline;
+                }
+            }
+        }
+
+        .name {
+            font-size: 18px;
+        }
+    }
+
+    .viewProfile {
+        padding: 12px;
+        display: flex;
+        justify-content: center;
+        color: white;
+        background-color: #1dbcd8;
+        font-size: 16px;
+        border-radius: 0 0 7px 7px;
+    }
+
+}

@@ -1,0 +1,209 @@
+@import 'navBar';
+
+$color_one : #edf2fb;
+$color_two : #f9f9f9;
+$color_three : #4f6d7a;
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: $color_two;
+}
+
+
+.container {
+    margin: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    //min-height: 100vh;
+    background-color: inherit;
+    padding: 0;
+    border: 1px solid;
+    
+
+    .chatHead {
+        width: 100%;
+
+        .title {
+            width: 70%;
+            float: left;
+            border: solid 1px;
+            text-align: start;
+        }
+
+        .setting {
+            width: 20%;
+            //border-radius: 20%;
+            float: right;
+            border: solid 1px;
+        }
+    }
+
+    .chatBody {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+
+        .conversation {
+            width: 33%;
+            float: left;
+            border: solid 1px lightgray;
+            border-radius: 7px;
+
+
+            .search {
+                width: 100%;
+                height: 43px;
+                border: 0px ;
+                border-bottom: 1px solid lightgray;
+                border-radius: 7px 7px 0 0;
+                padding: 10px;
+                padding-left: 15px;
+                font-size: 16px;
+            }
+
+            .conv {
+                padding: 10px 1px 10px 10px;
+                height: 45px;
+                background-color: $color_one;
+                
+
+                .photo {
+                    width: 20%;
+                    float: left;
+
+                    img {
+                        border-radius: 50%;
+                    }
+                    
+                }
+
+                .username {
+                    width: 55%;
+                    float: left;
+
+                    .name {
+                        padding-bottom: 5px;
+                        text-align: left;
+                        font-size: 18px;
+                        font-family: 'Times New Roman';
+                        font-weight: 600;
+                    }
+
+                    .lastMessage {
+                        text-align: left;
+                        font-weight: lighter;
+                        color: rgba(39, 39, 39, 0.671);
+                        
+                    }
+                    
+                }
+
+                .lastSeen {
+                    padding-top: 5px;
+                    font-size: small;
+                    float:left;
+                    color: rgba(39, 39, 39, 0.671);
+                    text-align: end;
+                }
+            }
+
+        }
+
+        .messages {
+            width: 62%;
+            float: left;
+            margin-left: 25px;
+            
+
+            .messagesHead {
+                padding: 10px;
+                height: 30px;
+                border: solid 1px lightgray;
+                border-radius: 7px 7px 0 0;
+    
+                .photoTexting {
+                    padding: 5px;
+                    float: left;
+
+                    img {
+                        border-radius: 50%;
+                    }
+    
+                }
+    
+                .usernameTexting {
+                    padding: 5px;
+                    float: left;
+                }
+    
+                .chatSetting {
+                    float: right;
+                    padding: 5px;
+                }
+    
+            }
+
+            .messagesBody {
+                height: 300px;
+                border: solid 1px lightgray;
+                border-top: 0;
+        
+            }
+
+            .messageFooter {
+                display: flex;
+                justify-content: space-evenly;
+                height: 40px;
+
+                .attach {
+                    float: left;
+                    width: 5%;
+                    border: 1px solid lightgray;
+                    border-top: none;
+                    border-radius: 0 0 0 7px;
+                    text-align: center;
+                }
+
+                form {
+                    float: left;
+                    padding: 0;
+                    border: 1px solid lightgray;
+                    border-left: none;
+                    border-top: none;
+                    border-radius: 0 0 7px 0;
+                    background-color: rgb(226, 226, 226);
+                    width: 95%;
+                    display: flex;
+                    justify-content: space-evenly;
+                    
+
+                    .writeText {
+                        border: none;
+                        background-color:  rgb(226, 226, 226);
+                        width: 90%;
+                    }
+
+                    .sendText {
+                        border: none;
+                        background-color:  rgb(226, 226, 226);
+                        color: rgb(0, 0, 0);
+                        
+                    }
+
+                }
+            }
+
+        }
+        
+
+    }
+
+}

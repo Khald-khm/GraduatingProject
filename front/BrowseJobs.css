@@ -1,0 +1,140 @@
+header {
+  padding: 5px;
+  background-color: #001d3d;
+  height: 50px;
+  color: white;
+}
+
+header .list {
+  padding: 0 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .list .links {
+  padding: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .list .links ul {
+  padding-right: 20px;
+  list-style: none;
+}
+
+header .list .links ul li {
+  padding: 2px 20px;
+  display: inline-block;
+}
+
+header .list .links img {
+  border-radius: 50%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  background-color: #f9f9f9;
+}
+
+.container {
+  padding: 30px;
+  margin: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  border-radius: 7px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(218, 218, 218, 0.288)), to(rgba(77, 77, 77, 0.288)));
+  background-image: linear-gradient(to bottom, rgba(218, 218, 218, 0.288), rgba(77, 77, 77, 0.288));
+}
+
+.profileCard {
+  width: 330px;
+  border: 1px solid lightgray;
+  border-radius: 7px;
+}
+
+.profileCard .profileImage {
+  height: 130px;
+  border-bottom: 1px solid lightgray;
+  background: white;
+  border-radius: 7px 7px 0 0;
+}
+
+.profileCard .profileInfo {
+  padding: 10px 5PX;
+  text-align: start;
+  background-color: #fffeef;
+}
+
+.profileCard .profileInfo .name, .profileCard .profileInfo .location, .profileCard .profileInfo .perHour, .profileCard .profileInfo .skills, .profileCard .profileInfo .rate {
+  padding: 10px;
+  padding-left: 25px;
+  font-size: 16px;
+}
+
+.profileCard .profileInfo .skills ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.profileCard .profileInfo .skills ul li {
+  font-size: 14px;
+  display: inline;
+}
+
+.profileCard .profileInfo .name {
+  font-size: 18px;
+}
+
+.profileCard .viewProfile {
+  padding: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  background-color: #1dbcd8;
+  font-size: 16px;
+  border-radius: 0 0 7px 7px;
+}
+/*# sourceMappingURL=BrowseJobs.css.map */

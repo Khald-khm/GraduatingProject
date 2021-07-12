@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.wholeForm {
+  margin: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.wholeForm .sideImage {
+  padding-bottom: 90px;
+  width: 60%;
+}
+
+.wholeForm .sideImage img {
+  width: 30vw;
+}
+
+.wholeForm .loginForm {
+  padding: 20px;
+  padding-top: 110px;
+  width: 250px;
+  height: 350px;
+  border-radius: 7px;
+  -webkit-box-shadow: -3px -3px 7px 3px lightgray;
+          box-shadow: -3px -3px 7px 3px lightgray;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f9f4ff), to(#b96eff));
+  background-image: linear-gradient(to bottom, #f9f4ff, #b96eff);
+}
+
+.wholeForm .loginForm .headerForm {
+  font-size: 36px;
+}
+
+.wholeForm .loginForm .headerForm .welcome {
+  text-align: start;
+  font-size: 30px;
+}
+
+.wholeForm .loginForm .headerForm .getJob {
+  padding-top: 10px;
+  padding-right: 20px;
+  text-align: end;
+}
+
+.wholeForm .loginForm form {
+  padding: 5px;
+}
+
+.wholeForm .loginForm form .forgetPassword {
+  padding-right: 15px;
+  font-size: 11px;
+  text-align: end;
+}
+
+.wholeForm .loginForm form .username, .wholeForm .loginForm form .login {
+  padding: 10px;
+}
+
+.wholeForm .loginForm form .username input, .wholeForm .loginForm form .login input {
+  padding: 0 10px;
+  width: 200px;
+  height: 35px;
+  border-radius: 40px;
+  border: none;
+  -webkit-box-shadow: inset 1px 1px 5px 3px #a8a8a8, inset -5px -5px 5px 3px white;
+          box-shadow: inset 1px 1px 5px 3px #a8a8a8, inset -5px -5px 5px 3px white;
+}
+
+.wholeForm .loginForm form .login input {
+  -webkit-box-shadow: 3px 3px 6px 1px #555555;
+          box-shadow: 3px 3px 6px 1px #555555;
+}
+
+.wholeForm .loginForm .registerLink {
+  padding-top: 67px;
+  font-size: 12px;
+}
+/*# sourceMappingURL=Login.css.map */
