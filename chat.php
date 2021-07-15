@@ -13,21 +13,21 @@ if(!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] != true)
 
 if(isset($_GET['id']))
 {
-    $_COOKIE['anotherUser'] = $_GET['id'];
+    $_SESSION['anotherUser'] = $_GET['id'];
 }
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    if(isset($_POST['send']))
-    {
-        $stmt = $pdo->prepare('INSERT INTO `messages` (`creator_id`, `destination_id`, `message`, `created_at`) VALUES (?, ?, ?, ?)');
-        $stmt->execute([$_SESSION['id'], $_COOKIE['anotherUser'], $_POST['message'], date("Y-m-d H:i:s")]);
-        unset($_POST);
-        header("Location: chat.php" . '?id='.$_COOKIE['anotherUser']);
-    }
+// if($_SERVER["REQUEST_METHOD"] == "POST")
+// {
+//     if(isset($_POST['send']))
+//     {
+//         $stmt = $pdo->prepare('INSERT INTO `messages` (`creator_id`, `destination_id`, `message`, `created_at`) VALUES (?, ?, ?, ?)');
+//         $stmt->execute([$_SESSION['id'], $_COOKIE['anotherUser'], $_POST['message'], date("Y-m-d H:i:s")]);
+//         unset($_POST);
+//         header("Location: chat.php" . '?id='.$_COOKIE['anotherUser']);
+//     }
 
-}
+// }
 
 
 // if($_SERVER["REQUEST_METHOD"] == "GET")
@@ -45,13 +45,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
 // the user you are texting
 $stmt = $pdo->prepare("SELECT username FROM user WHERE id = ?");
-$stmt->execute([ $_COOKIE['anotherUser']]);
+$stmt->execute([ $_SESSION['anotherUser']]);
 $liveUser = $stmt->fetch();
 
 
 // all the messages in the conversation
 $stmt = $pdo->prepare("SELECT DISTINCT message, creator_id, destination_id, created_at FROM messages, user WHERE ((creator_id =:me AND destination_id =:him) OR (creator_id =:him AND destination_id =:me)) ORDER BY created_at");
-$stmt->execute(['me' => $_SESSION['id'], 'him' => $_COOKIE['anotherUser']]);
+$stmt->execute(['me' => $_SESSION['id'], 'him' => $_SESSION['anotherUser']]);
 $allMessages = $stmt->fetchAll();
 
 
@@ -204,86 +204,9 @@ $textedUser = $stmt->fetchAll();
     </div>
     <div class="page-content-wrapper py-3 chat-wrapper">
         <div class="container">
-            <div class="chat-content-wrap">
+            <div class="chat-content-wrap" id="allMessages">
 
 
-                <?php 
-                    
-                    foreach($allMessages as $row)
-                    {
-
-                        if($_COOKIE['anotherUser'] == $row['creator_id'] && !empty($row['message']))
-                        {
-                            ?>
-                        
-                
-                
-                <!-- Single Chat Item-->
-                <div class="single-chat-item">
-                    <!-- User Avatar-->
-                    <div class="user-avatar mt-1">
-                        <!-- If the user avatar isn't available, will visible the first letter of the username.--><span class="name-first-letter">A</span><img src="img/bg-img/2.jpg" alt="">
-                    </div>
-                    <!-- User Message-->
-                    <div class="user-message">
-                        <div class="message-content">
-                            <div class="single-message">
-                                <p><?php /*if(!empty($row['message'])){*/echo $row['message'];/*}else{exit()}*/?></p>
-                            </div>
-                            <!-- Options-->
-                            <div class="dropstart">
-                                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
-                                    <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
-                                    <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Time and Status-->
-                        <div class="message-time-status">
-                            <div class="sent-time">11:39 AM</div>
-                        </div>
-                    </div>
-                </div>
-
-                    <?php 
-                    }
-                    else if(!empty($row['message'])){
-                        ?>
-                    
-                <!-- Single Chat Item-->
-                <div class="single-chat-item outgoing">
-                    <!-- User Avatar-->
-                    <div class="user-avatar mt-1">
-                        <!-- If the user avatar isn't available, will visible the first letter of the username.--><span class="name-first-letter">A</span><img src="img/bg-img/user3.png" alt="">
-                    </div>
-                    <!-- User Message-->
-                    <div class="user-message">
-                        <div class="message-content">
-                            <div class="single-message">
-                                <p><?php echo $row['message'];?></p>
-                            </div>
-                            <!-- Options-->
-                            <div class="dropstart">
-                                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
-                                    <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
-                                    <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Time and Status-->
-                        <div class="message-time-status">
-                            <div class="sent-time">11:46 AM</div>
-                            <div class="sent-status seen"><i class="fa fa-check" aria-hidden="true"></i></div>
-                        </div>
-                    </div>
-                </div>
-                   <?php }
-
-                 } ?>
                 
             </div>
         </div>
@@ -291,9 +214,9 @@ $textedUser = $stmt->fetchAll();
     <div class="chat-footer">
         <div class="container h-100">
             <div class="chat-footer-content h-100 d-flex align-items-center">
-                <form action="chat.php? <?php echo 'id='.$_COOKIE['anotherUser'];?>" method="post">
+                <!-- <form action="chat.php? <?php // echo 'id='.$_COOKIE['anotherUser'];?>" method="post"> -->
                     <!-- Message-->
-                    <input class="form-control" type="text" name="message" placeholder="Type here...">
+                    <input class="form-control" id="messageField" type="text" name="message" placeholder="Type here...">
                     <!-- Emoji-->
                     <button class="btn btn-emoji mx-2" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -316,15 +239,73 @@ $textedUser = $stmt->fetchAll();
                         </ul>
                     </div>
                     <!-- Send-->
-                    <button class="btn btn-submit" type="submit" name="send"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
+                    <button class="btn btn-submit" onclick="sendMessage()" name="send"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
 <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
 </svg>
             </button>
-                </form>
+                <!-- </form> -->
             </div>
         </div>
     </div>
     <!-- All JavaScript Files-->
+
+    <script>
+
+
+        function sendMessage() {
+            var message = $("#messageField").val();
+            $.ajax(
+                {
+                    type: 'POST',
+                    data: {"message" : message},
+                    // dataType: "html",
+                    url: 'chatAjax.php',
+                    success: function(data) {
+                        // $('#ajaxTry').val(data);
+                        console.log("success");
+                        $("#messageField").val("");
+                        // console.log(naming);
+                        // $('#ajaxTry').html(data);
+
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                    
+                }
+            )
+        }
+
+
+
+        var interval = 1000;  // 1000 = 1 second, 3000 = 3 seconds
+        function doAjax() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'allMessages.php',
+                    // data: $(this).serialize(),
+                    // dataType: 'string',
+                    success: function (data) {
+                            // $('#ajaxCalling').val(data);// first set the value
+                            $('#allMessages').html(data);
+                            // console.log(data);
+                            console.log("hello");
+                    },
+                    complete: function (data) {
+                            // Schedule the next
+                            setTimeout(doAjax, interval);
+                    }
+            });
+        }
+        setTimeout(doAjax, interval);
+
+    
+        // Ajax function that doesn't reload the page when sending message
+        // Don't forget to empty the field when success
+        
+    
+    </script>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/default/internet-status.js"></script>

@@ -20,7 +20,7 @@ if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true){
     }
     else if($_SESSION['group_id'] == 3)
     {
-        header('location: BrowseJobsT.php');
+        header('location: BrowseJobsCompany.php');
     }
     else{
         header('location: Dashboard.php');

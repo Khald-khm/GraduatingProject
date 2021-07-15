@@ -120,7 +120,7 @@ $posts = $stmt->fetchAll();
                             
                             
 
-                ?>
+                    ?>
 
                         <div class="card single-product-card">
                             <div class="blog-body">
