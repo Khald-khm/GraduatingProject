@@ -19,24 +19,27 @@ if(isset($_GET['id']))
 
 
 
+$stmt = $pdo->prepare('SELECT id, title FROM post WHERE client_id = ? AND status = "available"');
+$stmt->execute([$_SESSION['id']]);
+$postId = $stmt->fetchAll();
+
+
+
 if(isset($_POST['hiring']))
 {
 
     
-    $stmt = $pdo->prepare('SELECT id, title FROM post WHERE client_id = ? AND status = "available" LIMIT 1');
-    $stmt->execute([$_SESSION['id']]);
-    $postId = $stmt->fetch();
-
+    
     $projectId = $postId["id"];
 
-    if($postId->rowCount() == 1)
-    {
-        $show = true;
-    }
-    else
-    {
-        $show = false;
-    }
+    // if($postId->rowCount() == 1)
+    // {
+    //     $show = true;
+    // }
+    // else
+    // {
+    //     $show = false;
+    // }
     
 
     $stmt = $pdo->prepare('UPDATE post SET freelancer_id = ?, status = "in progress" WHERE id = ?');
@@ -79,6 +82,8 @@ $skillsArr = explode(", ", $user['skills']);
 // to foreach all the skills
 
 
+$stmt = $pdo->prepare('SELECT title FROM post WHERE client_id = ? AND status = "available"')
+
 
 
 ?>
@@ -109,10 +114,54 @@ $skillsArr = explode(", ", $user['skills']);
     <link rel="stylesheet" href="Portfolio/css/style.css" type="text/css" media="all">
 
 
+    <style>
+        .drop-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown:hover .drop-btn {
+    background-color: #3e8e41;
+  }
+    </style>
+
+
 
 </head>
 
 <body>
+
 
 
 
@@ -162,7 +211,7 @@ $skillsArr = explode(", ", $user['skills']);
             </div>
             <!-- logo image -->
             <div class="site-logo">
-                <a href="index-light.html">
+                <a href="login.php">
                     <img src="Portfolio/images/logo.png" alt="AC" />
                 </a>
             </div>
@@ -171,6 +220,8 @@ $skillsArr = explode(", ", $user['skills']);
 
     <!-- desktop header -->
     <header class="desktop-header-1 light d-flex align-items-start flex-column">
+
+    <a href="login.php"> <i class="fa fa-angle-left" style="font-size: 40px;"></i> </a>
 
         <!-- logo image -->
         <!-- <div class="site-logo">
@@ -228,28 +279,36 @@ $skillsArr = explode(", ", $user['skills']);
                     if(!$client && $_SESSION['group_id'] == 2)
                     {
                         ?>
+                        <div class="dropdown">
+                            <button class="btn drop-btn">Hire me</button>
+                            <div class="dropdown-content">
+                                <?php foreach($postId as $row){ ?>
+                                <a href="updateFreelancer.php?userId=<?php echo $_COOKIE['userProfile']."&postId=".$row['id'];?>"><?php echo $row['title']; ?></a>
+                                <?php } ?>
+                            </div>
+                        </div>
                     
-                    <form action="" method="post">
+                    <!-- <form action="" method="post">
 
                         <div class="mt-4">
                             <button type="submit" class="btn btn-default" name="hiring">Hire me</button>
                         </div>
                     
-                    </form>
+                    </form> -->
 
                     <?php } ?>
                     
                 </div>
 
                 <!-- scroll down mouse wheel -->
-                <div class="scroll-down light">
+                <!-- <div class="scroll-down light">
                     <a href="#about" class="mouse-wrapper">
                         <span>Scroll Down</span>
                         <span class="mouse">
 						<span class="wheel"></span>
                         </span>
                     </a>
-                </div>
+                </div> -->
 
                 <!-- parallax layers -->
                 <div class="parallax" data-relative-input="true">
@@ -282,6 +341,7 @@ $skillsArr = explode(", ", $user['skills']);
         </section>
 
         <!-- section about -->
+        
         <section id="about">
 
             <div class="container">
@@ -331,6 +391,7 @@ $skillsArr = explode(", ", $user['skills']);
 
 
         <?php
+
 
         if(!$client)
         {
@@ -417,7 +478,7 @@ $skillsArr = explode(", ", $user['skills']);
                             <p><?php echo $row['description']; ?></p>
                             <p><?php echo $row['status']; ?> </p>
                             <h3 class="price"><em>$</em><?php echo $row['cost']; ?><span></span></h3>
-                            <a href="#" class="btn btn-default">Get Started</a>
+                            <a href="postandproposals.php?id=<?php echo $row['id']; ?>" class="btn btn-default">View Post</a>
                         </div>
                     </div>
 
@@ -433,7 +494,8 @@ $skillsArr = explode(", ", $user['skills']);
 
 
         
-
+        <?php if($_SESSION["id"] != $_GET["id"]) 
+        { ?>
         <!-- section contact -->
         <section id="contact">
 
@@ -454,6 +516,10 @@ $skillsArr = explode(", ", $user['skills']);
                         </div>
                     </div>
 
+                    <?php if($_SESSION["id"] != $_GET["id"]){
+
+                    ?>
+
                     <div class="col-md-8">
                         <!-- Contact Form -->
                         
@@ -461,11 +527,15 @@ $skillsArr = explode(", ", $user['skills']);
                         <a href="chat.php?id=<?php echo $_COOKIE["userProfile"]; ?>" class="btn btn-default"> Go to Chat</a>
                     </div>
 
+                    <?php } ?>
+
                 </div>
 
             </div>
 
         </section>
+
+        <?php } ?>
 
         <div class="spacer" data-height="96"></div>
 

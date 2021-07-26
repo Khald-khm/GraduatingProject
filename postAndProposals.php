@@ -21,7 +21,7 @@ if(isset($_GET['id']))
 
 // post information
 
-$stmt = $pdo->prepare('SELECT username, post.id, freelancer_id, title, post.description, cost, DATE_FORMAT(post.start_date, "%m/%d/%Y") start_date, post.skills, status FROM post, user WHERE post.id = ? AND client_id = user.id');
+$stmt = $pdo->prepare('SELECT username, user.id, post.id, freelancer_id, title, post.description, cost, DATE_FORMAT(post.start_date, "%m/%d/%Y") start_date, post.skills, status FROM post, user WHERE post.id = ? AND client_id = user.id');
 $stmt->execute([$postId]);
 $post = $stmt->fetch();
 
@@ -94,13 +94,13 @@ if(isset($_POST['chooseFree']))
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
 
     <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/all.min.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/slick.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/animate.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+    <link rel="stylesheet" href="proposal/css/bootstrap.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="proposal/css/all.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="proposal/css/simple-line-icons.css" type="text/css" media="all">
+    <link rel="stylesheet" href="proposal/css/slick.css" type="text/css" media="all">
+    <link rel="stylesheet" href="proposal/css/animate.css" type="text/css" media="all">
+    <link rel="stylesheet" href="proposal/css/magnific-popup.css" type="text/css" media="all">
+    <link rel="stylesheet" href="proposal/css/style.css" type="text/css" media="all">
 
 
 
@@ -110,14 +110,17 @@ if(isset($_POST['chooseFree']))
     <div class="container">
 
         <div class=" tocard col-md-6 px-md-1 my-4 my-md-8">
+
+        <a href="login.php"> <i class="fa fa-angle-left" style="font-size: 40px;"></i> </a>
             <!-- price item recommended-->
             <div class="price-item bg-white rounded shadow-dark text-center best">
 
                 
-                <img src="images/price-2.svg" alt="Premium" /><?php echo $post['start_date'].'</br>'; ?>
+                <!-- <img src="images/price-2.svg" alt="Premium" /> -->
                 <h2 class="plan"><?php echo $post['title'].'</br>';?></h2>
                 <h6 class="plan"><?php echo $post['username'].'</br>';?><h6>
                 <p><?php echo $post['description'].'</br>'; ?></p>
+                <p><?php echo $post['start_date'].'</br>'; ?></p>
                 <p>
                     <?php 
                         foreach($skillArr as $row)
@@ -156,8 +159,8 @@ if(isset($_POST['chooseFree']))
                 <div class="col-md-3">
                     <div class="text-center text-md-left">
                         <!-- avatar image -->
-                        <img src="images/avatar-2.svg" alt="Bolby" />
-                        <?php echo $row['username'];?>
+                        <img src="ui-c\img\bg-img\user1.png" alt="Bolby" />
+                        <a href="profile.php?id=<?php echo $row['id'];?>"><?php echo $row['username'];?></a>
                     </div>
                     <div class="spacer d-md-none d-lg-none" data-height="30"></div>
                 </div>

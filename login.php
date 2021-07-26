@@ -102,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             }
                             else if($_SESSION['group_id']  == 3)
                             {
-                                header('location: BrowseJobsT.php');
+                                header('location: BrowseJobsCompany.php');
                             }
                             else{
                                 header('location: Dashboard.php');
@@ -239,11 +239,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <?php 
                                 if(!empty($login_err)){
                                     echo '<div class="alert alert-danger">' . $login_err . '</div>';
-                                }        
+                                    // echo (!empty($username_err)) ? 'is-invalid' : 'no Error';
+                                }  
+                                else if(!empty($username_err)){
+                                    echo '<div class="alert alert-danger">' . $username_err . '</div>';
+                                    // echo (!empty($username_err)) ? 'is-invalid' : 'no Error';
+                                }  
+                                else if(!empty($password_err)){
+                                    echo '<div class="alert alert-danger">' . $password_err . '</div>';
+                                }      
                             ?>
                         <form action="" method="post">
                             <div class="form-group">
-                                <input class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" type="text" placeholder="Username" name="username">
+                                <input class="form-control" value="<?php echo $username; ?>" type="text" placeholder="Username" name="username">
                             </div>
                             <div class="form-group">
                                 <input class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" type="password" placeholder="Enter Password" name="password">

@@ -35,10 +35,6 @@ if(isset($_POST['submitting']))
 
 
 
-echo $test;
-
-echo $_COOKIE['VerifyCode'];
-
 
 
 

@@ -17,7 +17,7 @@ if(!isset($_COOKIE['VerifyCode']))
 // }
 
 
-echo $_COOKIE['VerifyCode'];
+
 
 $email = $_SESSION['email'];
 

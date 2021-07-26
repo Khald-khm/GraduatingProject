@@ -144,6 +144,9 @@
 
 /* custom scroll bar */
 
+/*  */
+
+/*  */
 ::-webkit-scrollbar {
     width: 8px;
     border-radius: 10px;
@@ -455,13 +458,13 @@ caption {
     color: #ffffff;
     background-color: #fb3d18;
     border-color: #fb3d18;
-    box-shadow: 4px 4px 12px rgba(13, 39, 80, 0.25), -4px -4px 12px white !important;
+    box-shadow: 4px 4px 12px rgba(75, 126, 209, 0.25), -4px -4px 12px white !important;
 }
 
 .btn-primary:hover {
     color: #ffffff;
-    background-color: #000;
-    border-color: #000;
+    background-color: rgb(206, 49, 49);
+    border-color: rgb(194, 38, 38);
 }
 
 .btn-check:focus+.btn-primary,

@@ -12,17 +12,20 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true)
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$username_err = $password_err = $confirm_password_err = $register_err = "";
+
+$test = "no enter";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
- 
+    $test = "first enter";
+    
     // Validate username
     if(isset($_POST['username']) && empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
-    } 
+    }
     else if(!empty($_POST['username']))
     {
 
@@ -50,7 +53,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     } else{
                         $username = trim($_POST["username"]);
                     }
-                } else{
+                } 
+                
+                else{
                     echo "Oops! Something went wrong. Please try again later.";
                 }
 
@@ -113,13 +118,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     
     // Check input errors before inserting in database
-    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['location']) && !empty($_POST['group_id']) && !empty($_POST['skills']) && !empty($_POST['category']) && !empty($_POST['hourly_rate'])){
+    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['location']) && !empty($_POST['group_id'])){
 
+        $test = "not empty all";
+        
         $_SESSION['group_id'] = $_POST['group_id'];
 
         if($_POST['group_id'] == 1 && !empty($_POST['skills']) && !empty($_POST['hourly_rate']) && !empty($_POST['category']) && !empty($_POST['bio']))
         {
-            
+            $test = "before query";
+
             $stmt = $pdo->prepare("INSERT INTO user(first_name, last_name, email, username, password, skills, bio, hourly_rate, location, category, join_date, group_id) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['skills'], $_POST['bio'], $_POST['hourly_rate'], $_POST['location'], $_POST['category'], date("Y-m-d H:i:s"), $_POST['group_id']]);
@@ -163,7 +171,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //     // Close statement
         //     unset($stmt);
         // }
+
+        $test = "in the empty";
+
+        $register_err = "Register Error";
     }
+
 
     // else 
     // {
@@ -235,6 +248,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <!-- Register Form-->
                     <div class="register-form mt-4 px-4">
                         <h6 class="mb-3 text-center">Register to continue to Get Job</h6>
+
+                        <?php 
+                            
+                            echo $test;
+
+                            if(!empty($register_err)){
+                                echo '<div class="alert alert-danger">' . $register_err . '</div>';
+                                // echo (!empty($username_err)) ? 'is-invalid' : 'no Error';
+                            }  
+                            else if(!empty($username_err)){
+                                echo '<div class="alert alert-danger">' . $username_err . '</div>';
+                                // echo (!empty($username_err)) ? 'is-invalid' : 'no Error';
+                            }  
+                            else if(!empty($password_err)){
+                                echo '<div class="alert alert-danger">' . $password_err . '</div>';
+                            }      
+                        ?>
+
                         <form action="" method="post">
                             <div class="form-group text-start mb-3">
                                 <input class="form-control" type="text" placeholder="First Name" name="first_name">
