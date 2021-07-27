@@ -36,11 +36,11 @@ if ($pay == false)
 
 $stmt = $pdo->prepare("SELECT id, first_name, last_name, hourly_rate, bio, skills, category FROM user WHERE group_id = 1");
 // if user choose from links aside
-if(isset($_GET['link']))
+if(isset($_POST['link']))
 {
-    $link = $_GET['link'];
+    $link = $_POST['link'];
 
-    //$stmt = $db->prepare("SELECT title, post.description, cost, post.start_date, end_date, post.skills FROM post WHERE lower(category) =lower('$link')");
+    $stmt = $pdo->prepare("SELECT id, first_name, last_name, hourly_rate, bio, skills, category FROM user WHERE group_id = 1 AND CONCAT(first_name, last_name, hourly_rate, category, bio, skills) LIKE '%$link%' ");
     // edit the sql query to be for freelancer
 }
 
@@ -179,24 +179,24 @@ $freelancers = $stmt->fetchAll();
     </svg>Home</a>
             </li>
 
+            <?php if($_SESSION['group_id'] == 2){ ?>
+
             <li>
                 <a href="publishPost.php">
                     <svg width="18" height="18" viewBox="0 0 16 16" class="bi bi-collection" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M14.5 13.5h-13A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5zm-13 1A1.5 1.5 0 0 1 0 13V6a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 16 6v7a1.5 1.5 0 0 1-1.5 1.5h-13zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/>
     </svg>Publish Post<span class="badge bg-success rounded-pill ms-2"></span></a>
             </li>
-            <li class="affan-dropdown-menu">
+
+            <?php } ?>
+
+            <li>
                 <a href="manageProjectClient.php">
                     <svg width="18" height="18" viewBox="0 0 16 16" class="bi bi-cart-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M11.354 5.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z"/>
     <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-    </svg>Your project</a>
-                <ul>
-
-                    <li><a href="page-shop-list.html">- Browse projects</a></li>
-                    <li><a href="page-shop-details.html">- Project details</a></li>
-
-                </ul>
+    </svg> My Projects</a>
+                
             </li>
             <li>
                 <a href="profile.php?id=<?php echo $_SESSION['id'];?>">
@@ -233,19 +233,21 @@ $freelancers = $stmt->fetchAll();
     <div class="page-content-wrapper py-3" style="">
 
 
-        <!-- Search Bar -->
+        
         
 
 
         <div class="container">
 
 
+        <!-- Search Bar -->
         <div class="card mb-2">
             <div class="card-body p-2">
                 <div class="chat-search-box">
-                    <form action="#">
-                        <div class="input-group"><span class="input-group-text" id="searchbox"><i class="bi bi-search"></i></span>
-                            <input class="form-control" type="search" placeholder="Search users or messages" aria-describedby="searchbox">
+                    <form action="" method="post">
+                        <div class="input-group">
+                            <button type="submit" class="input-group-text" id="searchbox"><i class="bi bi-search"></i></button>
+                            <input class="form-control" type="search" placeholder="Search users, category..." aria-describedby="searchbox" name="link">
                         </div>
                     </form>
                 </div>
@@ -278,12 +280,14 @@ $freelancers = $stmt->fetchAll();
                     
 
                     <div class="">
+
                         <h5>Description</h5>
-                        <div></br><?php echo $row['bio'];?></div>
+                        <div><?php echo $row['bio'];?></div>
 
+                    </div></br>
+                    <a href="chat.php?<?php echo "id=".$row['id'];?> " class="btn btn-primary w-20" type="submit">Contact</a>
+                    
 
-                        <a href="chat.php?<?php echo "id=".$row['id'];?> " class="btn btn-primary w-20" type="submit">Contact</a>
-                    </div>
                 </div>
             </div>
 
@@ -392,9 +396,15 @@ $freelancers = $stmt->fetchAll();
 <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
 <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
 </svg><span>Home</span></a></li>
+
+                    <?php if($_SESSION['group_id'] == 2){ ?>
+
                     <li><a href="publishPost.php"><svg width="20" height="20" viewBox="0 0 16 16" class="bi bi-collection" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" d="M14.5 13.5h-13A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5zm-13 1A1.5 1.5 0 0 1 0 13V6a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 16 6v7a1.5 1.5 0 0 1-1.5 1.5h-13zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/>
 </svg><span>Publish Post</span></a></li>
+
+                    <?php } ?>
+
                     <li><a href="manageProjectClient.php"><svg width="20" height="20" viewBox="0 0 16 16" class="bi bi-folder2-open" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14V3.5zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5V6zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7H1.633z"/>
 </svg><span>My Projects</span></a></li>

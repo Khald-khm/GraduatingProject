@@ -14,13 +14,11 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true)
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = $register_err = "";
 
-$test = "no enter";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
-    $test = "first enter";
     
     // Validate username
     if(isset($_POST['username']) && empty(trim($_POST["username"]))){
@@ -118,20 +116,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     
     // Check input errors before inserting in database
-    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['location']) && !empty($_POST['group_id'])){
+    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['location']) && !empty($_POST['bio']) && !empty($_POST['group_id'])){
 
-        $test = "not empty all";
         
         $_SESSION['group_id'] = $_POST['group_id'];
+        $_SESSION['username'] = $_POST['username'];
+        
 
-        if($_POST['group_id'] == 1 && !empty($_POST['skills']) && !empty($_POST['hourly_rate']) && !empty($_POST['category']) && !empty($_POST['bio']))
+        if($_POST['group_id'] == 1 && !empty($_POST['skills']) && !empty($_POST['hourly_rate']) && !empty($_POST['category']))
         {
-            $test = "before query";
 
             $stmt = $pdo->prepare("INSERT INTO user(first_name, last_name, email, username, password, skills, bio, hourly_rate, location, category, join_date, group_id) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['skills'], $_POST['bio'], $_POST['hourly_rate'], $_POST['location'], $_POST['category'], date("Y-m-d H:i:s"), $_POST['group_id']]);
             
+            $stmt = $pdo->prepare("SELECT id, username, password, group_id FROM user WHERE username = ?");
+            $stmt->execute([$_POST['username']]);
+            $user = $stmt->fetch();
+            
+            $_SESSION['id'] = $user['id'];
             $_SESSION['loggedIn'] = true;
             header('location: browseJobs.php');
         
@@ -142,6 +145,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['location'], date("Y-m-d H:i:s"), $_POST['group_id']]);
 
+            $stmt = $pdo->prepare("SELECT id, username, password, group_id FROM user WHERE username = ?");
+            $stmt->execute([$_POST['username']]);
+            $user = $stmt->fetch();
+            
+            $_SESSION['id'] = $user['id'];
             $_SESSION['loggedIn'] = true;
             header('location: BrowseFreelancers.php');
         }
@@ -172,7 +180,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //     unset($stmt);
         // }
 
-        $test = "in the empty";
 
         $register_err = "Register Error";
     }
@@ -250,8 +257,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <h6 class="mb-3 text-center">Register to continue to Get Job</h6>
 
                         <?php 
-                            
-                            echo $test;
 
                             if(!empty($register_err)){
                                 echo '<div class="alert alert-danger">' . $register_err . '</div>';
@@ -288,6 +293,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="form-group text-start mb-3">
                                 <input class="form-control" type="text" placeholder="Location" name="location">
                             </div>
+                            <div class="form-group text-start mb-3">
+                                <textarea class="form-control" placeholder="About You..." name="bio"></textarea>
+                            </div>
 
                             <div class="radio" style="padding-bottom: 40px;">
 
@@ -295,6 +303,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     <input type="radio" id="radio-1" value="1" style="float: left;" checked onchange="displaySkill()" name="group_id">
                                     <label for="radio-1" style="float:left; padding-left: 15px;"> Freelancer </label>
                                 </div>
+
+                                
 
                                 <div class="radio__2" style="float:right; width:50%;">
                                     <input type="radio" id="radio-2" value="2" style="float: left;" onchange="displaySkill()" name="group_id">
@@ -317,9 +327,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     <input class="form-control" type="text" placeholder="Category" name="category">
                                 </div>
 
-                                <div class="form-group text-start mb-3">
-                                    <textarea class="form-control" placeholder="About You..." name="bio"></textarea>
-                                </div>
+                                
                                 
 
                             </div>

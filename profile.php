@@ -19,7 +19,7 @@ if(isset($_GET['id']))
 
 
 
-$stmt = $pdo->prepare('SELECT id, title FROM post WHERE client_id = ? AND status = "available"');
+$stmt = $pdo->prepare('SELECT id, title FROM post WHERE client_id = ? AND status = "available" AND paid_status = true ');
 $stmt->execute([$_SESSION['id']]);
 $postId = $stmt->fetchAll();
 
@@ -70,7 +70,7 @@ else if($user['group_id'] == 2)
 {
     $client = true;
 
-    $stmt = $pdo->prepare('SELECT * FROM post WHERE client_id = ?');
+    $stmt = $pdo->prepare('SELECT id, title, description, status, cost, freelancer_id, paid_status FROM post WHERE client_id = ?');
     $stmt->execute([$_COOKIE['userProfile']]);
     $projects = $stmt->fetchAll();
 }
@@ -239,7 +239,10 @@ $stmt = $pdo->prepare('SELECT title FROM post WHERE client_id = ? AND status = "
                 <!-- <li><a href="#experience"><i class="icon-graduation"></i>Experience</a></li> -->
                 <li><a href="#works"><i class="icon-layers"></i>Works</a></li>
                 <!-- <li><a href="#blog"><i class="icon-note"></i>Blog</a></li> -->
+                <?php if($_SESSION["id"] != $_GET["id"]) 
+                { ?>
                 <li><a href="#contact"><i class="icon-bubbles"></i>Contact</a></li>
+                <?php } ?>
             </ul>
         </nav>
 
@@ -283,7 +286,7 @@ $stmt = $pdo->prepare('SELECT title FROM post WHERE client_id = ? AND status = "
                             <button class="btn drop-btn">Hire me</button>
                             <div class="dropdown-content">
                                 <?php foreach($postId as $row){ ?>
-                                <a href="updateFreelancer.php?userId=<?php echo $_COOKIE['userProfile']."&postId=".$row['id'];?>"><?php echo $row['title']; ?></a>
+                                <a href="invite.php?userId=<?php echo $_COOKIE['userProfile']."&postId=".$row['id'];?>"><?php echo $row['title']; ?></a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -477,6 +480,15 @@ $stmt = $pdo->prepare('SELECT title FROM post WHERE client_id = ? AND status = "
                             <h2 class="plan"><?php echo $row['title']; ?></h2>
                             <p><?php echo $row['description']; ?></p>
                             <p><?php echo $row['status']; ?> </p>
+
+                            <?php if($_SESSION["id"] == $_GET["id"] && $_SESSION['group_id'] == 2) 
+                            { 
+                                ($row['paid_status'] == 1) ? $res = "Yes" : $res = "No";
+                                ?>
+                            <p><?php echo "Paid = " . $res; ?> </p>
+                            <p><?php echo "Freelnacer ID = ".$row['freelancer_id'] ?? "Not Choosen Yet"; ?> </p>
+                            <?php } ?>
+
                             <h3 class="price"><em>$</em><?php echo $row['cost']; ?><span></span></h3>
                             <a href="postandproposals.php?id=<?php echo $row['id']; ?>" class="btn btn-default">View Post</a>
                         </div>

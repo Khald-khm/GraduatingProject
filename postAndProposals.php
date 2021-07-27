@@ -21,7 +21,7 @@ if(isset($_GET['id']))
 
 // post information
 
-$stmt = $pdo->prepare('SELECT username, user.id, post.id, freelancer_id, title, post.description, cost, DATE_FORMAT(post.start_date, "%m/%d/%Y") start_date, post.skills, status FROM post, user WHERE post.id = ? AND client_id = user.id');
+$stmt = $pdo->prepare('SELECT username, user.id, post.id, client_id, freelancer_id, paid_status, title, post.description, cost, DATE_FORMAT(post.start_date, "%m/%d/%Y") start_date, post.skills, status FROM post, user WHERE post.id = ? AND client_id = user.id');
 $stmt->execute([$postId]);
 $post = $stmt->fetch();
 
@@ -100,18 +100,39 @@ if(isset($_POST['chooseFree']))
     <link rel="stylesheet" href="proposal/css/slick.css" type="text/css" media="all">
     <link rel="stylesheet" href="proposal/css/animate.css" type="text/css" media="all">
     <link rel="stylesheet" href="proposal/css/magnific-popup.css" type="text/css" media="all">
-    <link rel="stylesheet" href="proposal/css/style.css" type="text/css" media="all">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="css/apexcharts.css">
+    <link rel="manifest" href="manifest.json">
 
+    <link rel="stylesheet" href="proposal/css/style.css" type="text/css" media="all">
 
 
 </head>
 
 <body>
+
+
+
+    
+
+
+
+
+
+    <div class="pl-5 pt-4">
+        <a href="login.php" class=""> <i class="fa fa-angle-left" style="font-size: 40px;"></i> </a>
+    </div>
+
     <div class="container">
 
         <div class=" tocard col-md-6 px-md-1 my-4 my-md-8">
 
-        <a href="login.php"> <i class="fa fa-angle-left" style="font-size: 40px;"></i> </a>
+        
             <!-- price item recommended-->
             <div class="price-item bg-white rounded shadow-dark text-center best">
 
@@ -121,6 +142,12 @@ if(isset($_POST['chooseFree']))
                 <h6 class="plan"><?php echo $post['username'].'</br>';?><h6>
                 <p><?php echo $post['description'].'</br>'; ?></p>
                 <p><?php echo $post['start_date'].'</br>'; ?></p>
+                <?php if($_SESSION["id"] == $post["client_id"] && $_SESSION['group_id'] == 2) 
+                { 
+                    ($post['paid_status'] == 1) ? $res = "Yes" : $res = "No";
+                    ?>
+                <p><?php echo "Paid = " . $res; ?> </p>
+                <?php } ?>
                 <p>
                     <?php 
                         foreach($skillArr as $row)
@@ -145,7 +172,7 @@ if(isset($_POST['chooseFree']))
 
             <div class="spacer" data-height="60"></div>
 
-            <div class="row">
+            <div class="row d-flex align-items-center">
 
                 <?php 
 
@@ -156,11 +183,11 @@ if(isset($_POST['chooseFree']))
                         
                 ?>
 
-                <div class="col-md-3">
-                    <div class="text-center text-md-left">
+                <div class="col-md-3 p-3">
+                    <div class="text-center text-md-left d-flex flex-column align-items-center">
                         <!-- avatar image -->
-                        <img src="ui-c\img\bg-img\user1.png" alt="Bolby" />
-                        <a href="profile.php?id=<?php echo $row['id'];?>"><?php echo $row['username'];?></a>
+                        <img src="ui-c\img\bg-img\user1.png" alt="Bolby" class="w-50" />
+                        <h6><a href="profile.php?id=<?php echo $row['id'];?>" class=""><?php echo $row['username'];?></a></h6>
                     </div>
                     <div class="spacer d-md-none d-lg-none" data-height="30"></div>
                 </div>
@@ -168,7 +195,7 @@ if(isset($_POST['chooseFree']))
                 <div class="col-md-9 triangle-left-md triangle-top-sm">
                     <div class="rounded bg-white shadow-dark padding-30">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 ">
                                 <!-- about text -->
                                 <p><?php echo $row['description']; ?></p>
 
@@ -238,7 +265,7 @@ if(isset($_POST['chooseFree']))
                             <div class="column col-md-12">
                                 <!-- Message textarea -->
                                 <div class="form-group">
-                                    <textarea name="proposal" id="InputMessage" class="form-control" rows="5" placeholder="Message" required="required" data-error="Message is required."></textarea>
+                                    <textarea name="proposal" id="InputMessage" class="form-control" rows="5" placeholder="Add Your Proposal..." required="required" data-error="Message is required."></textarea>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -257,11 +284,16 @@ if(isset($_POST['chooseFree']))
 
         </div>
 
+
+        
+
+
     </section>
 
     <div class="spacer" data-height="96"></div>
 
-    </main>
+
+    
 
     <!-- Go to top button -->
     <a href="javascript:" id="return-to-top"><i class="fas fa-arrow-up"></i></a>
@@ -284,6 +316,27 @@ if(isset($_POST['chooseFree']))
     <script src="js/parallax.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/custom.js"></script>
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/default/internet-status.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/default/dark-mode-switch.js"></script>
+    <script src="js/ion.rangeSlider.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/default/active.js"></script>
+    <script src="js/default/clipboard.js"></script>
+    <!-- PWA-->
+    <script src="js/pwa.js"></script>
 
 </body>
 

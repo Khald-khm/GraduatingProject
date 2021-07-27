@@ -218,14 +218,14 @@ $textedUser = $stmt->fetchAll();
                     <!-- Message-->
                     <input class="form-control" id="messageField" type="text" name="message" placeholder="Type here...">
                     <!-- Emoji-->
-                    <button class="btn btn-emoji mx-2" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                    <button class="btn btn-emoji mx-2" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
 </svg>
             </button>
                     <!-- Add File-->
                     <div class="dropup me-2">
-                        <button class="btn btn-add-file dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" ><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <button class="btn btn-add-file dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" ><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 </svg>
@@ -239,7 +239,7 @@ $textedUser = $stmt->fetchAll();
                         </ul>
                     </div>
                     <!-- Send-->
-                    <button class="btn btn-submit" onclick="sendMessage()" name="send"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
+                    <button class="btn btn-submit" onclick="sendMessage()" name="send"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16" type="submit">
 <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
 </svg>
             </button>
@@ -250,6 +250,12 @@ $textedUser = $stmt->fetchAll();
     <!-- All JavaScript Files-->
 
     <script>
+
+
+        // $(document).ready(function () {
+
+        //     // var scroll = setInterval(function(){ window.scrollBy(0,1000); }, 2000);
+        // }
 
 
         function sendMessage() {
